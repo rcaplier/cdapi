@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Student;
 use App\Repository\StudentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -78,4 +80,28 @@ class StudentController extends AbstractController
         return new JsonResponse($student, 200, [], true);
     }
 
+    #[Route('/student', name: 'addNewStudent', methods: 'POST')]
+    public function addNewStudent(Request $request): JsonResponse
+    {
+        $students = $this->studentRepository->findAll();
+        $id = count($students);
+
+        $student = new Student();
+        $student->setId($id);
+        $student->setFirstname($request->get('firstname'));
+        $student->setLastname($request->get('lastname'));
+        $student->setNicknames((array)$request->get('nicknames'));
+        $student->setAge($request->get('age'));
+        $student->setPhoto($request->get('photo'));
+        $student->setPower($request->get('power'));
+        $student->setStrengths((array)$request->get('strengths'));
+        $student->setWeaknesses((array)$request->get('weaknesses'));
+
+        $this->entityManager->persist($student);
+        $this->entityManager->flush();
+
+        $student = $this->serializer->serialize($student, "json");
+
+        return new JsonResponse($student, 200, [], true);
+    }
 }
