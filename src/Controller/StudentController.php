@@ -83,19 +83,21 @@ class StudentController extends AbstractController
     #[Route('/student', name: 'addNewStudent', methods: 'POST')]
     public function addNewStudent(Request $request): JsonResponse
     {
+        $data = json_decode($request->getContent(), true);
+
         $students = $this->studentRepository->findAll();
         $id = count($students);
 
         $student = new Student();
         $student->setId($id);
-        $student->setFirstname($request->get('firstname'));
-        $student->setLastname($request->get('lastname'));
-        $student->setNicknames((array)$request->get('nicknames'));
-        $student->setAge($request->get('age'));
-        $student->setPhoto($request->get('photo'));
-        $student->setPower($request->get('power'));
-        $student->setStrengths((array)$request->get('strengths'));
-        $student->setWeaknesses((array)$request->get('weaknesses'));
+        $student->setFirstname($data['firstname']);
+        $student->setLastname($data['lastname']);
+        $student->setNicknames((array)$data['nicknames']);
+        $student->setAge($data['age']);
+        $student->setPhoto($data['photo']);
+        $student->setPower($data['power']);
+        $student->setStrengths((array)$data['strengths']);
+        $student->setWeaknesses((array)$data['weaknesses']);
 
         $this->entityManager->persist($student);
         $this->entityManager->flush();
