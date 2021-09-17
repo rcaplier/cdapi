@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\StudentRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -58,9 +60,14 @@ class Student
     private $weaknesses = [];
 
     /**
-     * @ORM\Column(type="json", nullable=true)
+     * @ORM\ManyToMany(targetEntity=Language::class, mappedBy="students")
      */
-    private $favoriteLanguages = [];
+    private $favoriteLanguages;
+
+    public function __construct()
+    {
+        $this->favoriteLanguages = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -163,15 +170,31 @@ class Student
         return $this;
     }
 
-    public function getFavoriteLanguages(): ?array
+    /**
+     * @return Collection|Language[]
+     */
+    public function getFavoriteLanguages(): Collection
     {
         return $this->favoriteLanguages;
     }
 
-    public function setFavoriteLanguages(?array $favoriteLanguages): self
+    public function addFavoriteLanguage(Language $favoriteLanguage): self
     {
-        $this->favoriteLanguages = $favoriteLanguages;
+        if (!$this->favoriteLanguages->contains($favoriteLanguage)) {
+            $this->favoriteLanguages[] = $favoriteLanguage;
+            $favoriteLanguage->addStudent($this);
+        }
 
         return $this;
     }
+
+    public function removeFavoriteLanguage(Language $favoriteLanguage): self
+    {
+        if ($this->favoriteLanguages->removeElement($favoriteLanguage)) {
+            $favoriteLanguage->removeStudent($this);
+        }
+
+        return $this;
+    }
+
 }
