@@ -9,6 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class StudentController extends AbstractController
@@ -35,7 +37,12 @@ class StudentController extends AbstractController
     {
         $students = $this->studentRepository->findAll();
 
-        $students = $this->serializer->serialize($students, "json");
+        $students = $this->serializer->serialize($students, "json", [
+            AbstractObjectNormalizer::ENABLE_MAX_DEPTH => true,
+            AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
+                return$object->getId();
+            }
+        ]);
 
         return new JsonResponse($students, 200, [], true);
     }
@@ -45,7 +52,12 @@ class StudentController extends AbstractController
     {
         $student = $this->studentRepository->find($studentId);
 
-        $student = $this->serializer->serialize($student, "json");
+        $student = $this->serializer->serialize($student, "json", [
+            AbstractObjectNormalizer::ENABLE_MAX_DEPTH => true,
+            AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
+                return$object->getId();
+            }
+        ]);
 
         return new JsonResponse($student, 200, [], true);
     }
@@ -65,7 +77,12 @@ class StudentController extends AbstractController
             }
         }
 
-        $response = $this->serializer->serialize($response, "json");
+        $response = $this->serializer->serialize($response, "json", [
+            AbstractObjectNormalizer::ENABLE_MAX_DEPTH => true,
+            AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
+                return$object->getId();
+            }
+        ]);
 
         return new JsonResponse($response, 200, [], true);
     }
@@ -75,7 +92,12 @@ class StudentController extends AbstractController
     {
         $student = $this->studentRepository->findBy(['lastname' => $lastname]);
 
-        $student = $this->serializer->serialize($student, "json");
+        $student = $this->serializer->serialize($student, "json", [
+            AbstractObjectNormalizer::ENABLE_MAX_DEPTH => true,
+            AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
+                return$object->getId();
+            }
+        ]);
 
         return new JsonResponse($student, 200, [], true);
     }
@@ -98,7 +120,12 @@ class StudentController extends AbstractController
         $this->entityManager->persist($student);
         $this->entityManager->flush();
 
-        $student = $this->serializer->serialize($student, "json");
+        $student = $this->serializer->serialize($student, "json", [
+            AbstractObjectNormalizer::ENABLE_MAX_DEPTH => true,
+            AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
+                return$object->getId();
+            }
+        ]);
 
         return new JsonResponse($student, 200, [], true);
     }
@@ -115,7 +142,12 @@ class StudentController extends AbstractController
         $this->entityManager->persist($student);
         $this->entityManager->flush();
 
-        $student = $this->serializer->serialize($student, "json");
+        $student = $this->serializer->serialize($student, "json", [
+            AbstractObjectNormalizer::ENABLE_MAX_DEPTH => true,
+            AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
+                return$object->getId();
+            }
+        ]);
 
         return new JsonResponse($student, 200, [], true);
     }
@@ -132,7 +164,12 @@ class StudentController extends AbstractController
         $this->entityManager->persist($student);
         $this->entityManager->flush();
 
-        $student = $this->serializer->serialize($student, "json");
+        $student = $this->serializer->serialize($student, "json", [
+            AbstractObjectNormalizer::ENABLE_MAX_DEPTH => true,
+            AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
+                return$object->getId();
+            }
+        ]);;
 
         return new JsonResponse($student, 200, [], true);
     }
@@ -149,7 +186,12 @@ class StudentController extends AbstractController
         $this->entityManager->persist($student);
         $this->entityManager->flush();
 
-        $student = $this->serializer->serialize($student, "json");
+        $student = $this->serializer->serialize($student, "json", [
+            AbstractObjectNormalizer::ENABLE_MAX_DEPTH => true,
+            AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
+                return$object->getId();
+            }
+        ]);
 
         return new JsonResponse($student, 200, [], true);
     }
@@ -166,7 +208,12 @@ class StudentController extends AbstractController
         $this->entityManager->persist($student);
         $this->entityManager->flush();
 
-        $student = $this->serializer->serialize($student, "json");
+        $student = $this->serializer->serialize($student, "json", [
+            AbstractObjectNormalizer::ENABLE_MAX_DEPTH => true,
+            AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
+                return$object->getId();
+            }
+        ]);
 
         return new JsonResponse($student, 200, [], true);
     }
@@ -183,7 +230,12 @@ class StudentController extends AbstractController
         $this->entityManager->persist($student);
         $this->entityManager->flush();
 
-        $student = $this->serializer->serialize($student, "json");
+        $student = $this->serializer->serialize($student, "json", [
+            AbstractObjectNormalizer::ENABLE_MAX_DEPTH => true,
+            AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
+                return$object->getId();
+            }
+        ]);
 
         return new JsonResponse($student, 200, [], true);
     }
@@ -200,7 +252,12 @@ class StudentController extends AbstractController
         $this->entityManager->persist($student);
         $this->entityManager->flush();
 
-        $student = $this->serializer->serialize($student, "json");
+        $student = $this->serializer->serialize($student, "json", [
+            AbstractObjectNormalizer::ENABLE_MAX_DEPTH => true,
+            AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
+                return$object->getId();
+            }
+        ]);
 
         return new JsonResponse($student, 200, [], true);
     }
@@ -217,7 +274,12 @@ class StudentController extends AbstractController
         $this->entityManager->persist($student);
         $this->entityManager->flush();
 
-        $student = $this->serializer->serialize($student, "json");
+        $student = $this->serializer->serialize($student, "json", [
+            AbstractObjectNormalizer::ENABLE_MAX_DEPTH => true,
+            AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
+                return$object->getId();
+            }
+        ]);
 
         return new JsonResponse($student, 200, [], true);
     }
@@ -234,7 +296,12 @@ class StudentController extends AbstractController
         $this->entityManager->persist($student);
         $this->entityManager->flush();
 
-        $student = $this->serializer->serialize($student, "json");
+        $student = $this->serializer->serialize($student, "json", [
+            AbstractObjectNormalizer::ENABLE_MAX_DEPTH => true,
+            AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
+                return$object->getId();
+            }
+        ]);
 
         return new JsonResponse($student, 200, [], true);
     }
