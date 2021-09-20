@@ -85,11 +85,7 @@ class StudentController extends AbstractController
     {
         $data = json_decode($request->getContent(), true);
 
-        $students = $this->studentRepository->findAll();
-        $id = count($students);
-
         $student = new Student();
-        $student->setId($id);
         $student->setFirstname($data['firstname']);
         $student->setLastname($data['lastname']);
         $student->setNicknames((array)$data['nicknames']);
