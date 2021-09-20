@@ -6,6 +6,8 @@ use App\Repository\LanguageRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Ignore;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @ORM\Entity(repositoryClass=LanguageRepository::class)
@@ -26,6 +28,7 @@ class Language
 
     /**
      * @ORM\ManyToMany(targetEntity=Student::class, inversedBy="favoriteLanguages")
+     * @MaxDepth(1)
      */
     private $students;
 
