@@ -102,4 +102,140 @@ class StudentController extends AbstractController
 
         return new JsonResponse($student, 200, [], true);
     }
+
+    #[Route('/student/{studentId}/firstname', name: 'patchStudent_firstname', methods: 'PATCH')]
+    public function patchStudent_firstname(string $studentId, Request $request): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $student = $this->studentRepository->find($studentId);
+
+        $student->setFirstname($data['firstname']);
+
+        $this->entityManager->persist($student);
+        $this->entityManager->flush();
+
+        $student = $this->serializer->serialize($student, "json");
+
+        return new JsonResponse($student, 200, [], true);
+    }
+
+    #[Route('/student/{studentId}/lastname', name: 'patchStudent_lastname', methods: 'PATCH')]
+    public function patchStudent_lastname(string $studentId, Request $request): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $student = $this->studentRepository->find($studentId);
+
+        $student->setLastname($data['lastname']);
+
+        $this->entityManager->persist($student);
+        $this->entityManager->flush();
+
+        $student = $this->serializer->serialize($student, "json");
+
+        return new JsonResponse($student, 200, [], true);
+    }
+
+    #[Route('/student/{studentId}/nicknames', name: 'patchStudent_nicknames', methods: 'PATCH')]
+    public function patchStudent_nicknames(string $studentId, Request $request): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $student = $this->studentRepository->find($studentId);
+
+        $student->setNicknames((array)$data['nicknames']);
+
+        $this->entityManager->persist($student);
+        $this->entityManager->flush();
+
+        $student = $this->serializer->serialize($student, "json");
+
+        return new JsonResponse($student, 200, [], true);
+    }
+
+    #[Route('/student/{studentId}/age', name: 'patchStudent_age', methods: 'PATCH')]
+    public function patchStudent_age(string $studentId, Request $request): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $student = $this->studentRepository->find($studentId);
+
+        $student->setAge($data['age']);
+
+        $this->entityManager->persist($student);
+        $this->entityManager->flush();
+
+        $student = $this->serializer->serialize($student, "json");
+
+        return new JsonResponse($student, 200, [], true);
+    }
+
+    #[Route('/student/{studentId}/photo', name: 'patchStudent_photo', methods: 'PATCH')]
+    public function patchStudent_photo(string $studentId, Request $request): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $student = $this->studentRepository->find($studentId);
+
+        $student->setPhoto($data['photo']);
+
+        $this->entityManager->persist($student);
+        $this->entityManager->flush();
+
+        $student = $this->serializer->serialize($student, "json");
+
+        return new JsonResponse($student, 200, [], true);
+    }
+
+    #[Route('/student/{studentId}/power', name: 'patchStudent_power', methods: 'PATCH')]
+    public function patchStudent_power(string $studentId, Request $request): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $student = $this->studentRepository->find($studentId);
+
+        $student->setPower($data['power']);
+
+        $this->entityManager->persist($student);
+        $this->entityManager->flush();
+
+        $student = $this->serializer->serialize($student, "json");
+
+        return new JsonResponse($student, 200, [], true);
+    }
+
+    #[Route('/student/{studentId}/strengths', name: 'patchStudent_strengths', methods: 'PATCH')]
+    public function patchStudent_strengths(string $studentId, Request $request): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $student = $this->studentRepository->find($studentId);
+
+        $student->setStrengths((array)$data['strengths']);
+
+        $this->entityManager->persist($student);
+        $this->entityManager->flush();
+
+        $student = $this->serializer->serialize($student, "json");
+
+        return new JsonResponse($student, 200, [], true);
+    }
+
+    #[Route('/student/{studentId}/weaknesses', name: 'patchStudent_weaknesses', methods: 'PATCH')]
+    public function patchStudent_weaknesses(string $studentId, Request $request): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $student = $this->studentRepository->find($studentId);
+
+        $student->setWeaknesses((array)$data['weaknesses']);
+
+        $this->entityManager->persist($student);
+        $this->entityManager->flush();
+
+        $student = $this->serializer->serialize($student, "json");
+
+        return new JsonResponse($student, 200, [], true);
+    }
 }
